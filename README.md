@@ -15,12 +15,25 @@ Pre-Req:
 11. Evaluate Automatic tests.
 12. Syntax 
    - run Syntax action
-   - go to schema and change org name to 10
+   - go to schema and change org name field to max 128 change to max 10 -->
+            ```
+            organizations:
+                  name: str(min=1, max=128, required=False)
+            ```      
    - re-run syntax check (that shall fail)
  
 13. Semantics 
    - run Semantics action
    - go to org_global.nac.yaml and change admin name to root
+         ```
+            meraki:
+               domains:
+                  - name: US
+                      administrator:
+                            name: admin ---> here change to root
+                    organizations:
+         ```
+         
    - there is a semantic (= business) rule that does not allow admin name in my company to be "root"
    - run semantic action again (that shall fail)
 
