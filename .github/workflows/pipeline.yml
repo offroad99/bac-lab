@@ -85,12 +85,11 @@ jobs:
 
       - name: Configure Terraform Cloud credentials
         run: |
-          cat > /tmp/.terraformrc <<EOF
-          credentials "app.terraform.io" {
-            token = "$TF_CLOUD_TOKEN"
-          }
-          EOF
+          printf 'credentials "app.terraform.io" {\n  token = "%s"\n}\n' "$TF_CLOUD_TOKEN" > /tmp/.terraformrc
           echo "TF_CLI_CONFIG_FILE=/tmp/.terraformrc" >> $GITHUB_ENV
+          echo "--- Verifying credentials file ---"
+          cat /tmp/.terraformrc
+          if [ -z "$TF_CLOUD_TOKEN" ]; then echo "ERROR: TF_CLOUD_TOKEN is empty! Check secret TF_TOKEN_APP_TERRAFORM_IO."; exit 1; fi
 
       - name: Merge YAML data model
         working-directory: workspaces
@@ -209,11 +208,7 @@ jobs:
 
       - name: Configure Terraform Cloud credentials
         run: |
-          cat > /tmp/.terraformrc <<EOF
-          credentials "app.terraform.io" {
-            token = "$TF_CLOUD_TOKEN"
-          }
-          EOF
+          printf 'credentials "app.terraform.io" {\n  token = "%s"\n}\n' "$TF_CLOUD_TOKEN" > /tmp/.terraformrc
           echo "TF_CLI_CONFIG_FILE=/tmp/.terraformrc" >> $GITHUB_ENV
 
       - name: Download merged configuration
@@ -259,11 +254,7 @@ jobs:
 
       - name: Configure Terraform Cloud credentials
         run: |
-          cat > /tmp/.terraformrc <<EOF
-          credentials "app.terraform.io" {
-            token = "$TF_CLOUD_TOKEN"
-          }
-          EOF
+          printf 'credentials "app.terraform.io" {\n  token = "%s"\n}\n' "$TF_CLOUD_TOKEN" > /tmp/.terraformrc
           echo "TF_CLI_CONFIG_FILE=/tmp/.terraformrc" >> $GITHUB_ENV
 
       - name: Download merged configuration
@@ -303,11 +294,7 @@ jobs:
 
       - name: Configure Terraform Cloud credentials
         run: |
-          cat > /tmp/.terraformrc <<EOF
-          credentials "app.terraform.io" {
-            token = "$TF_CLOUD_TOKEN"
-          }
-          EOF
+          printf 'credentials "app.terraform.io" {\n  token = "%s"\n}\n' "$TF_CLOUD_TOKEN" > /tmp/.terraformrc
           echo "TF_CLI_CONFIG_FILE=/tmp/.terraformrc" >> $GITHUB_ENV
 
       - name: Download merged configuration
@@ -419,11 +406,7 @@ jobs:
       - name: Configure Terraform Cloud credentials
         if: needs.deploy.result == 'failure'
         run: |
-          cat > /tmp/.terraformrc <<EOF
-          credentials "app.terraform.io" {
-            token = "$TF_CLOUD_TOKEN"
-          }
-          EOF
+          printf 'credentials "app.terraform.io" {\n  token = "%s"\n}\n' "$TF_CLOUD_TOKEN" > /tmp/.terraformrc
           echo "TF_CLI_CONFIG_FILE=/tmp/.terraformrc" >> $GITHUB_ENV
 
       - name: Terraform destroy on deploy failure
