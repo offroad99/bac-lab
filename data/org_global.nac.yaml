@@ -1,6 +1,6 @@
 meraki:
   domains:
-    - name: !env domain
+    - name: US
       administrator:
         name: admin
       organizations:
