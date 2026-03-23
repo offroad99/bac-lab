@@ -94,8 +94,8 @@ meraki:
                     #   use_vpn: true
                     # - local_subnet: ${vlan50_subnet}
                     #   use_vpn: false
-                    # - local_subnet: ${vlan999_subnet}
-                    #   use_vpn: true
+                    - local_subnet: ${vlan999_subnet}
+                      use_vpn: false
       #
       # The below code does the following:
       #
@@ -124,7 +124,7 @@ meraki:
                             to: 14
               enabled: true
               type: trunk
-              allowed_vlans: "1,10,20"
+              allowed_vlans: "1,10,20,999"
               vlan: 1
       #
       # The below code does the following:
@@ -199,15 +199,15 @@ meraki:
             #   dhcp_relay_server_ips:
             #     - ${corp_dhcp_server1}
             #     - ${corp_dhcp_server2}
-            # - vlan_id: 999
-            #   name: "Infra"
-            #   subnet: ${vlan999_subnet}
-            #   appliance_ip: ${vlan999_appliance_ip}
-            #   dns_nameservers: opendns
-            #   dhcp_handling: "Run a DHCP server"
-            #   dhcp_lease_time: "1 day"
-            #   dhcp_boot_options: false
-            #   mandatory_dhcp: false
+            - vlan_id: 999
+              name: "Infra"
+              subnet: ${vlan999_subnet}
+              appliance_ip: ${vlan999_appliance_ip}
+              dns_nameservers: opendns
+              dhcp_handling: "Run a DHCP server"
+              dhcp_lease_time: "1 day"
+              dhcp_boot_options: false
+              mandatory_dhcp: false
               # fixed_ip_assignments:
               #  - name: "Switch 1 Management IP"
               #    ip: ${fixed_ip_sw1}
